@@ -1,0 +1,207 @@
+@media print{
+    tr:nth-child(even) {
+        visibility: visible;
+        background-color: white;
+    }
+    input[type=submit],input[type=button],input[type=reset]{
+        display: none;
+    }
+    input[name=balan],input[type=text],input[name=phno],textarea,select{
+        outline:none;
+        border: none;
+        background: transparent;
+    }
+    input[name=address]{
+        width:100%
+    }
+    #close_button{
+        display: none;
+    }
+    
+    
+}
+
+table>thead{
+    text-align: center;
+}
+table>div:last-child{
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: flex-start;
+}
+#container{
+    margin: 10px 10px 10px 10px;
+    border:2px black solid;
+    padding: 15px;
+}
+td{
+    text-align: center;
+}
+td>input[type=text]{
+    text-align: center;
+}
+.header{
+    width: 100%;
+    height: 100px;
+}
+#div4{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#div7{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-end;
+    text-align: start;
+}
+#div7>div{
+    padding: 6px;
+    border-bottom: 1px black outset;
+}
+#div7>div:last-child{
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 8px;
+}
+#details{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-content: stretch;
+    padding: 5px;
+
+}
+#details>div{
+    border: 1px black solid;
+}
+#details>div>label{
+    padding: 2px;
+    text-decoration: underline;
+}
+
+#address_form{
+    display: flex;
+    justify-content:flex-start;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-content: stretch;
+    padding: 5px;
+}
+#address_form>div{
+    border: 1px black solid;
+}
+#address_form>div>label{
+    padding: 2px;
+    text-decoration: underline;
+}
+#discount_btn{
+    display: block;
+}
+#discount_block{
+    display: none;
+}
+#table{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+
+}
+#table>div{
+    padding: 10px; 
+}
+#table>div:last-child{
+    display: flex;
+    flex-direction: column-reverse
+}
+input:invalid{
+    border: 3px solid red;
+}
+img{
+    float: right;
+    margin-right: 50px;
+    padding: 10px;
+    width: 150px;
+    opacity: 0.8;
+}
+img:hover{
+    opacity: 2.0;
+}
+
+#div2{
+    display:inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 8px;
+    text-align: center;
+    border-spacing: 5px;
+    
+    font-size: 20px;
+}
+
+#head{
+    display: flex;
+    padding: 0px 15px 5px 10px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}
+#head>div:first-child{
+    border: 4px double black;
+    padding: 6px;
+}
+#div8{
+    display: flex;
+    flex-direction: row;
+    padding: 0px;
+}
+#div8>div{
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    border: 1px solid black;
+}
+#div8>div>label{
+    text-decoration: underline;
+}
+
+#payment_mode_description{
+    padding-top: 5px;
+}
+#payment_mode_description>div{
+    display: flex;
+    padding: 2px;
+    align-items: stretch;
+    border: 1px solid black;
+}
+#div9{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+#div9>div{
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    border: 1px solid black;
+    padding: 2px;
+}
+#div10{
+    display: flex;
+    flex-direction: column;
+}
+#div10>div{
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    border: 1px solid black;
+    padding: 2px;
+}
+
+

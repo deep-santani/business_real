@@ -1,0 +1,342 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <title>Bills</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="{% static 'css/bills.css' %}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="{% static 'js/bills.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-confirmation2/dist/bootstrap-confirmation.min.js"></script>
+
+    <div class="m-4">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a href="#" class="navbar-brand">URU</a>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav">
+                        <a href="/" class="nav-item nav-link active">Home</a>
+                        <a href="/bills" class="nav-item nav-link">Bills</a>
+                        <a href="/bills/bills_filter" class="nav-item nav-link">Bills Filter</a>
+                        <a href="/items" class="nav-item nav-link">Stock</a>
+                        <a href="/json/customers/" class="nav-item nav-link">Customer_API</a>
+                        <a href="/json/items/" class="nav-item nav-link">Items_API</a>
+                    </div>
+                    <div class="navbar-nav ms-auto">
+                        <a href="#" class="nav-item nav-link">Login</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</head>
+<body onload="loadJSON(),convertion()">
+    <div id="body">
+        <div>
+            <center><h1>Billing History</h1></center>
+        </div>
+
+
+        <div id="main">
+
+            <table class="table table-striped table-hover table-bordered border-dark table1" id="table1">
+                <thead class="thead-dark">
+                    {% csrf_token %}
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">
+                            <form method="get" action="/bills/date">
+                                <label>From :</label>
+                                <input type="date" name="date">
+                                <label>To :</label>
+                                <input type="date" name="date">
+                                <br><br>
+                                <input type="submit" class="btn btn-outline-primary" value="Filter">
+                            </form>
+                        </th>
+
+                        <th scope="col">
+                            <form method="get" action="/bills/time">
+                                <label>From : </label>
+                                <input type="time" name="time">
+                                <label>To :</label>
+                                <input type="time" name="time">
+                                <br><br>
+                                <input type="submit" class="btn btn-outline-primary" value="Filter">
+                            </form>
+                        </th>
+                        <th scope="col">
+                            <form method="get" action="/bills/bill_no">
+                                <label>Search By Bill No. :</label>
+                                <input type="text" name="bill_no" size="3">
+                                <br><br>
+                                <input type="submit" class="btn btn-outline-primary" value="Filter">
+                            </form>
+                        </th>
+                        <th scope="col">
+                            <form method="get" action="/bills/customer" autocomplete="off" id="cname_form">
+                                <label>Search By Customer : </label>
+                                <select name="cname" id="cname" onchange="customers_onchange()">
+
+                                    <option value="">Select the customer</option>
+                                </select>
+                            </form>
+                        </th>
+                        <th scope="col">
+                            <form method="get" action="/bills/phoneno" autocomplete="off">
+                                <label>Search By Phone Number: </label>
+                                <input type="text" size="10" name="phoneno">
+                                <br><br>
+                                <input type="submit" class="btn btn-outline-primary" value="Filter">
+                            </form>
+                        </th>
+                        <th scope="col">
+                            <form method="get" action="/bills/item" autocomplete="off">
+                                <label>Search By Item Name : </label>
+                                <input type="text" name="item_name" list="items">
+                                <datalist id="items">
+                                </datalist>
+                                <br><br>
+                                <input type="submit" class="btn btn-outline-primary" value="Filter">
+                            </form>
+                        </th>
+                        <th scope="col">
+                            <form method="get" action="/bills/billAmt" autocomplete="off">
+                                <label>From</label>
+                                <input type="number" step="any" name="billAmt">
+                                <label>To</label>
+                                <input type="number" step="any" name="billAmt">
+                                <br><br>
+                                <input type="submit" class="btn btn-outline-primary" value="Filter">
+                            </form>
+                        </th>
+                        <th scope="col">
+                            <form method="get" action="/bills/discount" autocapitalize="off">
+                                <label>From</label>
+                                <input type="number" size="3" step="any" name="discount">
+                                <label>To</label>
+                                <input type="number" size="3" step="any" name="discount">
+                                <br><br>
+                                <input type="submit" class="btn btn-outline-primary" value="Filter">
+                            </form>
+                        </th>
+                        <th scope="col">
+                            <form method="get" action="/bills/totAmt" autocomplete="off">
+                                <label>From</label>
+                                <input type="number" size="5" step="any" name="totAmt">
+                                <label>To</label>
+                                <input type="number" size="5" step="any" name="totAmt">
+                                <br><br>
+                                <input type="submit" class="btn btn-outline-primary" value="Filter">
+                            </form>
+                        </th>
+                        <th scope="col">
+                            <form method="get" action="/bills/payment_mode" id="payment_mode" onchange="document.getElementById('payment_mode').submit()">
+                                <label>Search By Payment Mode : </label>
+                                <select name="payment_mode">
+                                    <option value="">Select Payment Mode</option>
+                                    <option value="Cash">Cash</option>
+                                    <option value="UPI">UPI</option>
+                                    <option value="PayLater">Pay Later</option>
+                                    <option value="Others">Others</option>
+                                </select>
+                            </form>
+                        </th>
+                        <th scope="col">
+                            <form method="get" action="/bills/payment_gateway" id="payment_gateway" onchange="document.getElementById('payment_gateway').submit()">
+                                <label>Search By Payment Gateway : </label>
+                                <select name="payment_gateway">
+                                    <option value="">Select Payment Gateway</option>
+                                    <option value="GooglePay">Google Pay</option>
+                                    <option value="Phonepe">PhonePe</option>
+                                    <option value="Paytm">Paytm</option>
+                                    <option value="Postpe">PostPe</option>
+                                    <option value="Other">Others</option>
+                                </select>
+                            </form>
+                        </th>
+                        <th scope="col">
+                            <form method="get" action="/bills/amtPaid" autocomplete="off">
+                                <label>From</label>
+                                <input type="number" size="6" step="any" name="amtPaid">
+                                <label>To</label>
+                                <input type="number" size="6" step="any" name="amtPaid">
+                                <br><br>
+                                <input type="submit" class="btn btn-outline-primary" value="Filter">
+                            </form>
+                        </th>
+                        <th scope="col">
+                            <form method="get" action="/bills/amtBal" autocomplete="off">
+                                <label>From</label>
+                                <input type="number" size="6" step="any" name="amtBal">
+                                <label>To</label>
+                                <input type="number" size="6" step="any" name="amtBal">
+                                <br><br>
+                                <input type="submit" class="btn btn-outline-primary" value="Filter">
+                            </form>
+                        </th>
+
+                        <th scope="col">
+                            <form method="get" action="/bills/vehicle_number" autocomplete="off">
+                                <label>Search By Vehicle Number :</label>
+                                <input type="text" size="10" name="vehicle_number">
+                                <br><br>
+                                <input type="submit" class="btn btn-outline-primary" value="Filter">
+                            </form>
+                        </th>
+                        <th scope="col">
+                            <form method="get" action="/bills/address" autocomplete="off">
+                                <label>Search By Address : </label>
+                                <textarea name="address"></textarea>
+                                <br><br>
+                                <input type="submit" class="btn btn-outline-primary" value="Filter">
+                            </form>
+                        </th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+
+
+                    <tr>
+                        <th class="table-dark" scope="col">S_No.</th>
+                        <th class="table-dark" scope="col">Date</th>
+                        <th class="table-dark" scope="col">Time</th>
+                        <th class="table-dark" scope="col">Bill No</th>
+                        <th class="table-dark" scope="col">Name</th>
+                        <th class="table-dark" scope="col">Phone Number</th>
+                        <th class="table-dark" scope="col">Orders</th>
+                        <th class="table-dark" scope="col">Bill</th>
+                        <th class="table-dark" scope="col">Discount</th>
+                        <th class="table-dark" scope="col">Total Amount</th>
+                        <th class="table-dark" scope="col">Payment Mode</th>
+                        <th class="table-dark" scope="col">Payment Gateway</th>
+                        <th class="table-dark" scope="col">Paid Amount</th>
+                        <th class="table-dark" scope="col">Balance Amount</th>
+                        <th class="table-dark" scope="col">Vehicle Number</th>
+                        <th class="table-dark" scope="col">Address</th>
+                        <th class="table-dark" scope="col">Details</th>
+                        <th class="table-dark" scope="col">Remarks</th>
+                        <th class="table-dark" scope="col"></th>
+                    </tr>
+
+                </thead>
+                <tbody>
+
+                    {% for payments in data%}
+
+
+
+                    <tr>
+
+                        <td>{{forloop.counter0|add:data.start_index}}</td>
+
+                        <td>{{payments.bill.date}}</td>
+                        <td>{{payments.bill.time}}</td>
+                        <td>{{payments.bill_id}}</td>
+                        <td>{{payments.customer.name}}</td>
+                        <td>{{payments.customer.phoneno}}</td>
+                        <td>
+                            <table class="table table-striped table-hover table-bordered border-secondary">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th class="table-success">Item Name</th>
+                                        <th class="table-success">Item Quantity</th>
+                                        <th class="table-success">Item Price</th>
+                                        <th class="table-success">Item GST</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item,lists in payments.bill.orders.items %}
+                                    <tr>
+                                        <td>{{item}}</td>
+                                        {% for list in lists %}
+                                        <td>{{list}}</td>
+                                        {% endfor %}
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>{{payments.bill.total}}</td>
+                        <td>{{payments.bill.discount}}</td>
+                        <td>{{payments.bill.amount}}</td>
+                        <td>{{payments.mode}}</td>
+                        <td>{{payments.gateway}}</td>
+                        <td>{{payments.pay_later_paid}}</td>
+                        <td>{{payments.pay_later_balance}}</td>
+
+                        <td>{{payments.bill.vehicle_number}}</td>
+                        <td>{{payments.customer.address}}</td>
+                        <td>{{payments.details}}</td>
+                        <td>{{payments.remark}}</td>
+                        <td>
+                            <a href="update/{{payments.bill_id}}" class="btn btn-warning" data-toggle="confirmation" data-title="Do you want to delete the bill no.{{payments.bill_id}}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
+                                </svg>Update
+                            </a><br><br>
+                            <a href="delete/{{payments.bill_id}}" class="btn btn-danger">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                </svg>Delete
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="7"></td>
+                        <td>{{totBill.total__sum}}</td>
+                        <td>{{totDiscount.discount__sum}}</td>
+                        <td>{{totAmt.amount__sum}}</td>
+                        <td colspan="2"></td>
+
+                        <td>{{totPayLaterPaid.pay_later_paid__sum}}</td>
+                        <td>{{totPayLaterBal.pay_later_balance__sum}}</td>
+                        <td colspan="5"></td>
+
+                    </tr>
+                </tfoot>
+            </table>
+
+        </div>
+        {% if data.has_other_pages %}
+
+        <center>
+            <div class="paginations">
+                {% if data.has_previous %}
+                <a href="?page={{ data.previous_page_number }}">&laquo;</a>
+                {% else %}
+                <a class="disabled"><span>&laquo;</span></a>
+                {% endif %}
+                {% for i in data.paginator.page_range %}
+                {% if data.number == i %}
+                <a class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></a>
+                {% else %}
+                <a href="?page={{ i }}">{{ i }}</a>
+                {% endif %}
+                {% endfor %}
+                {% if data.has_next %}
+                <a href="?page={{ data.next_page_number }}">&raquo;</a>
+                {% else %}
+                <a class="disabled"><span>&raquo;</span></a>
+                {% endif %}
+            </div>
+        </center>
+        {% endif %}
+
+    </div>
+
+
+</body>
+</html>

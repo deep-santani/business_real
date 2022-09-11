@@ -1,0 +1,109 @@
+#body{
+    padding: 10px;
+}
+#main{
+    padding: 10px;
+}
+textarea{
+    width: 100%;
+    min-width: 130px;
+}
+i{
+    
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 2px;
+    float: right;
+    margin-top: 6px;
+    color: white;
+    background-color: blueviolet;
+}
+i:hover{
+    color: blueviolet;
+    background-color: white;
+    cursor: pointer;
+}
+
+.table1>tfoot>tr{
+    background-color: #e2e7e857;
+    border:4px solid #9a4734;
+    font-size: xx-large;
+    height: 100px;
+}
+.table1>tfoot>tr>td:nth-child(3){
+    color: rgba(125, 40, 40, 0.672);
+    font-weight: bold;
+    
+}
+.table1>tfoot>tr>td:nth-child(4){
+    color:rgb(5, 5, 119);
+    font-weight: bolder;
+}
+.table1>tfoot>tr>td:nth-child(2){
+    color: rgb(199, 151, 61);
+    font-weight: bolder;
+}
+.table1>tfoot>tr>td:nth-child(6){
+    color: green;
+    font-weight: bolder;
+}
+ 
+.table1>tfoot>tr>td:nth-child(7){
+    color: red;
+    font-weight: bolder;
+}
+  .table1>thead>tr:last-child>th {
+    position: sticky;
+    top: 0; /* Don't forget this, required for the stickiness */
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    
+  }
+  input[type=submit]{
+    width:100%;
+  }
+  .table1>thead>tr:first-child>th{
+    display: flex;
+  }
+ 
+
+  .paginations {
+    display: inline-block;
+  }
+  
+  .paginations>a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid rgba(82, 78, 78, 0.455);
+    margin: 0 4px;
+    border-radius: 5px;
+  }
+  
+  .paginations>a.active {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    border: 1px solid #4CAF50;
+  }
+  
+  .paginations>a:hover:not(.active) {
+    background-color: #E73811;
+    color:whitesmoke;
+  }
+
+    .paginations>a.disabled{
+        background-color: rgb(235,235,228)
+
+        
+    }
+    .paginations>a.disabled:hover{
+        background-color: rgb(159, 166, 159);
+        cursor: no-drop;
+    }
+
+  tr{
+    vertical-align: middle;
+    text-align: center;
+  }
