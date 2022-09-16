@@ -95,15 +95,6 @@ WSGI_APPLICATION = 'business.wsgi.application'
 
 #For Heroku Running
 DATABASES = {
-<<<<<<< Updated upstream
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'business',
-        'USER':'',
-        'PASSWORD':'',
-        'HOST':'localhost',
-        'PORT':'',
-=======
     'default' : {
         'ENGINE' : 'django.db.backends.postgresql_psycopg2',
         'NAME' : 'd6fcakkd56pg80',
@@ -112,7 +103,6 @@ DATABASES = {
         'HOST' : 'ec2-52-207-90-231.compute-1.amazonaws.com',
         'PORT' : '5432',
         }
->>>>>>> Stashed changes
     }
 
 
@@ -161,8 +151,8 @@ USE_TZ = True
 #For Heroku Running
 STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
 STATIC_URL = '/static/'
-django._heroku.settings(locals())
-)
+django_heroku.settings(locals())
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
