@@ -1,6 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\billing",
+    "\\templates"
   ],
   "SelectedNode": "\\manage.py",
   "PreviewInSolutionExplorer": false
