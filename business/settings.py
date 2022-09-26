@@ -80,29 +80,29 @@ WSGI_APPLICATION = 'business.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 #For Actual Running
-DATABASES = {
-    'default': {
-       'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'business',
-        'USER':'admin',
-        'PASSWORD':'8W7iQU6ZxnA9Ppy5oIA4nzIEUxjfWu4u',
-        'HOST':'dpg-ccoku94gqg47hal7crh0-a',
-        'PORT':'5432',
-    }
- }
+#DATABASES = {
+#    'default': {
+#       'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'business',
+#        'USER':'admin',
+#        'PASSWORD':'8W7iQU6ZxnA9Ppy5oIA4nzIEUxjfWu4u',
+#        'HOST':'dpg-ccoku94gqg47hal7crh0-a',
+#        'PORT':'5432',
+#    }
+# }
 
 
 #For Heroku Running
-#DATABASES = {
-#    'default' : {
-#        'ENGINE' : 'django.db.backends.postgresql_psycopg2',
-#        'NAME' : 'd6fcakkd56pg80',
-#        'USER' : 'gvxgpswkyowyzl',
-#        'PASSWORD' : 'f28ad289733f0feef13e137ae5cdfc125719dbbb5100e6253429684750896185',
-#        'HOST' : 'ec2-52-207-90-231.compute-1.amazonaws.com',
-#        'PORT' : '5432',
-#    }
-#}
+DATABASES = {
+    'default' : {
+        'ENGINE' : 'django.db.backends.postgresql_psycopg2',
+        'NAME' : 'd6fcakkd56pg80',
+        'USER' : 'gvxgpswkyowyzl',
+        'PASSWORD' : 'f28ad289733f0feef13e137ae5cdfc125719dbbb5100e6253429684750896185',
+        'HOST' : 'ec2-52-207-90-231.compute-1.amazonaws.com',
+        'PORT' : '5432',
+    }
+}
 
 
 # Password validation
