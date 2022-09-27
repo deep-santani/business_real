@@ -29,7 +29,7 @@ DEBUG = True
 #ALLOWED_HOSTS = []
 
 #For Heroku
-ALLOWED_HOSTS = ['web-production-06e9.up.railway.app']
+ALLOWED_HOSTS = ['businessreal-production.up.railway.app']
 
 
 # Application definition
